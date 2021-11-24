@@ -75,6 +75,103 @@
 				</div>
 			</section>
 
+			<section id="fourth" class="main">
+				<header>
+					<div class="container">
+						<h2>Want to List Your Own Resource?</h2>
+						<p>If you have a resource that you know of that are local to you, please feel free to leave your information below to be posted so that people can reach out to you.<br />
+						</p>
+					</div>
+				</header>
+				<div class="content style4 featured">
+					<div class="container medium">
+						<form method="post" action="/sendResource">
+							<div class="row gtr-50">
+								<div class="col-6 col-12-mobile"><input type="text" name= 'name' placeholder="Name" /></div>
+								<div class="col-6 col-12-mobile"><input id="enterLocation" type="text" name= 'address' placeholder="Address" /></div>
+								<div class="col-6 col-12-mobile"><input type="text" name='details' placeholder="Details"></div>
+								<div class="col-12">
+										<button type="submit" class="button" value="Send Message">Send</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+	
+			<!-- Fourth -->
+			<div id="map">
+				<div>
+					<h3> My Google Map</h3>
+					<script>
+						function getUserLocation(){
+							if(navigator.geolocation){
+								navigator.geolocation.getCurrentPosition(initMap)
+							}
+						}
+						function initMap(pos) {
+							let options = {
+								zoom: 11,
+								center: { lat: pos.coords.latitude, lng: pos.coords.longitude }
+							}
+							let map = new google.maps.Map(document.getElementById('map'), options)
+							fetch('locations', {
+								method: 'get',
+								headers: { 'Content-Type': 'application/json' },
+							})
+								.then(response => {
+									console.log(response)
+									if (response.ok) return response.json()
+								})
+								.then(data => {
+									console.log(data)
+										for (let j = 0; j < data.locations.length; j++) {
+											let userAddress = data.locations[j].address;
+											let queryAddress = userAddress.split(' ').join('+')
+											let userCoordinates
+											fetch(
+												`https://maps.googleapis.com/maps/api/geocode/json?address=${queryAddress}&key=AIzaSyA-VGY6HGimxtf0eA9-YvG5I2nRrsaRcwg`
+											)
+												.then(res => res.json())
+												.then(function (result) {
+													let locations = []
+													let lat = result.results[0].geometry.location.lat
+													let lng = result.results[0].geometry.location.lng
+													let coords = [lat, lng, data.locations[j].details]
+													locations.push(coords)
+													var infowindow = new google.maps.InfoWindow();
+													var marker, i;
+													for (i = 0; i < locations.length; i++) {
+														marker = new google.maps.Marker({
+															position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+															map: map,
+															icon: {
+															// add image url instead of binary
+															scaledSize: new window.google.maps.Size(50, 50)
+															},
+															mapTypeId: google.maps.MapTypeId.ROADMAP,
+															draggable: false,
+															title: "pin",
+															content: '<h1>Location</h1>'
+														});
+														google.maps.event.addListener(marker, 'click', (function (marker, i) {
+															return function () {
+																infowindow.setContent(
+																	`<p>${locations[i][2]}</p>`
+																	);
+																infowindow.open(map, marker);
+															}
+														})(marker, i));
+													}
+												});
+										}
+									
+								})
+						}
+					</script>
+				</div>
+			</div>
+	
 		<!-- Second -->
 			<section id="second" class="main">
 				<header>
@@ -102,12 +199,12 @@
 							</div>
 							<div class="col-8 col-12-narrow">
 								<div class="row">
-									<div class="col-6"><a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a></div>
-									<div class="col-6"><a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a></div>
-									<div class="col-6"><a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a></div>
-									<div class="col-6"><a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a></div>
-									<div class="col-6"><a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a></div>
-									<div class="col-6"><a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a></div>
+									<div class="col-6"><a href="#" class="image fit"><img src="img/not4sale.jpg" alt="" /></a></div>
+									<div class="col-6"><a href="#" class="image fit"><img src="img/handovermouth.jpg" alt="" /></a></div>
+									<div class="col-6"><a href="#" class="image fit"><img src="img/childhandtied.jpg" alt="" /></a></div>
+									<div class="col-6"><a href="#" class="image fit"><img src="img/childcrying.jpg" alt="" /></a></div>
+									<div class="col-6"><a href="#" class="image fit"><img src="img/stillexist.jpg" alt="" /></a></div>
+									<div class="col-6"><a href="#" class="image fit"><img src="img/slavery.jpg" alt="" /></a></div>
 								</div>
 							</div>
 						</div>
@@ -124,6 +221,7 @@
 						<p>These Global brands depend upon factories in China that utilize the forced labor of Chinese ethnic minority Uighurs. </p>
 					</div>
 				</header>
+
 				<div class="content dark style3">
 					<div class="container">
 						<span class="image featured"><img src="images/pic07.jpg" alt="" /></span>
@@ -337,33 +435,7 @@
 			</section>
 		-->
 
-		<!-- Fourth -->
-			<section id="fourth" class="main">
-				<header>
-					<div class="container">
-						<h2>Want to List Your Own Resource?</h2>
-						<p>If you have a resource that you know of that are local to you, please feel free to leave your information below to be posted so that people can reach out to you.<br />
-						</p>
-					</div>
-				</header>
-				<div class="content style4 featured">
-					<div class="container medium">
-						<form method="post" action="#">
-							<div class="row gtr-50">
-								<div class="col-6 col-12-mobile"><input type="text" placeholder="Name" /></div>
-								<div class="col-6 col-12-mobile"><input type="text" placeholder="Email" /></div>
-								<div class="col-12"><textarea name="message" placeholder="Message"></textarea></div>
-								<div class="col-12">
-									<ul class="actions special">
-										<li><input type="submit" class="button" value="Send Message" /></li>
-										<li><input type="reset" class="button alt" value="Clear Form" /></li>
-									</ul>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</section>
+
 
 		<!-- Footer -->
 			<section id="footer">
@@ -382,12 +454,19 @@
 			</section>
 
 		<!-- Scripts -->
+		<script type="text/javascript"
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-VGY6HGimxtf0eA9-YvG5I2nRrsaRcwg&libraries=places">
+                    </script>
+					<script
+					src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-VGY6HGimxtf0eA9-YvG5I2nRrsaRcwg&channel=2&callback=getUserLocation"
+					async defer></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="/main.js"></script>
 
 	</body>
 </html>

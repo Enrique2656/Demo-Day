@@ -4,27 +4,31 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-(function($) {
+// (function($) {
 
-	var	$window = $(window),
-		$body = $('body');
+// 	var	$window = $(window),
+// 		$body = $('body');
 
-	// Breakpoints.
-		breakpoints({
-			wide:    [ '1281px',  '1680px' ],
-			normal:  [ '1001px',  '1280px' ],
-			narrow:  [ '737px',   '1000px' ],
-			mobile:  [ null,      '736px'  ]
-		});
+// 	// Breakpoints.
+// 		breakpoints({
+// 			wide:    [ '1281px',  '1680px' ],
+// 			normal:  [ '1001px',  '1280px' ],
+// 			narrow:  [ '737px',   '1000px' ],
+// 			mobile:  [ null,      '736px'  ]
+// 		});
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+// 	// Play initial animations on page load.
+// 		$window.on('load', function() {
+// 			window.setTimeout(function() {
+// 				$body.removeClass('is-preload');
+// 			}, 100);
+// 		});
 
-	// Scrolly.
-		$('.scrolly').scrolly();
+// 	// Scrolly.
+// 		$('.scrolly').scrolly();
 
-})(jQuery);
+// })(jQuery);
+
+// Map
+let gpaInput = document.getElementById("enterLocation")
+let autocomplete = new google.maps.places.Autocomplete(gpaInput);

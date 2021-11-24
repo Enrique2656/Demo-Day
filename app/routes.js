@@ -10,13 +10,24 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {console.log({db})
-        db.collection('inventoryList').find().toArray((err, result) => {
+        db.collection('resource').find().toArray((err, result) => {
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
-            messages: result
+            resource: result
           })
         })
+    });
+
+    app.get('/locations', function (req, res) {
+      db.collection('resource').find().toArray((err, result) => {
+          console.log(result)
+          if (err) return console.log(err)
+          res.send( {
+            user: req.user,
+            locations: result
+        })
+      })
     });
 
 
@@ -27,8 +38,8 @@ module.exports = function(app, passport, db) {
     });
 
 // message board routes ===============================================================
-app.post('/inventory', (req, res) => {
-  db.collection('inventoryList').insertOne({name: req.body.name, cat: req.body.cat, plus: 0, minus:0}, (err, result) => {
+app.post('/sendResource', (req, res) => {
+  db.collection('resource').insertOne({name: req.body.name, address: req.body.address, details:req.body.details}, (err, result) => {
     if (err) return console.log(err)
     console.log('saved to database')
     res.redirect('profile')
