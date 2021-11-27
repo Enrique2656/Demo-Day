@@ -90,6 +90,7 @@ app.delete('/delete', (req, res) => {
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
 
+
     // locally --------------------------------
         // LOGIN ===============================
         // show the login form
@@ -117,12 +118,16 @@ app.delete('/delete', (req, res) => {
             failureFlash : true // allow flash messages
         }));
 
+
+
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
 // =============================================================================
 // used to unlink accounts. for social accounts, just remove the token
 // for local account, remove email and password
 // user account will stay active in case they want to reconnect in the future
+
+
 
     // local -----------------------------------
     app.get('/unlink/local', isLoggedIn, function(req, res) {
@@ -133,7 +138,6 @@ app.delete('/delete', (req, res) => {
             res.redirect('/profile');
         });
     });
-
 };
 
 // route middleware to ensure user is logged in

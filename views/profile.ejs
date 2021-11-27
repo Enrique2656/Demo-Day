@@ -127,6 +127,7 @@
 									console.log(data)
 										for (let j = 0; j < data.locations.length; j++) {
 											let userAddress = data.locations[j].address;
+											let name = data.locations[j].name;
 											let queryAddress = userAddress.split(' ').join('+')
 											let userCoordinates
 											fetch(
@@ -141,6 +142,7 @@
 													locations.push(coords)
 													var infowindow = new google.maps.InfoWindow();
 													var marker, i;
+													console.log(userAddress)
 													for (i = 0; i < locations.length; i++) {
 														marker = new google.maps.Marker({
 															position: new google.maps.LatLng(locations[i][0], locations[i][1]),
@@ -157,7 +159,8 @@
 														google.maps.event.addListener(marker, 'click', (function (marker, i) {
 															return function () {
 																infowindow.setContent(
-																	`<p>${locations[i][2]}</p>`
+																	`<p>${name}</p> <p>${userAddress}</p> <p>${locations[i][2]}</p>`
+																	
 																	);
 																infowindow.open(map, marker);
 															}
@@ -226,7 +229,7 @@
 
 				<div class="content dark style3">
 					<div class="container">
-						<span class="image featured"><img src="images/pic07.jpg" alt="" /></span>
+						<span class="image featured"><img src="img/human-paper.jpg" alt="" /></span>
 						<div class="row">
 							<div class="col-4 col-12-narrow">
 								<h3>Diam vivamus turpis lorem sodales lectus ornare</h3>
@@ -265,7 +268,7 @@
 								dolore euismod lorem ipsum dolor sit amet conseismod lorem ipsum dolor sit amet
 								consequat lorem ipsum consequat feugiat sed tempus euismod feugiat veroeros.</p>
 								<footer>
-									<a href="#fourth" class="button scrolly">Ipsum ornare lorem dolor</a>
+									<a href="#fourth" class="button scrolly">Back To Top</a>
 								</footer>
 							</div>
 						</div>
