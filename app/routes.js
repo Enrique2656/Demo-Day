@@ -37,7 +37,9 @@ module.exports = function(app, passport, db) {
         res.redirect('/');
     });
 
-// message board routes ===============================================================
+
+
+// send resource  routes ===============================================================
 app.post('/sendResource', (req, res) => {
   db.collection('resource').insertOne({name: req.body.name, address: req.body.address, details:req.body.details}, (err, result) => {
     if (err) return console.log(err)
@@ -46,6 +48,7 @@ app.post('/sendResource', (req, res) => {
   })
 })
 
+// future features to add. like/favorite button? and a like or dislike button? 
 
 app.put('/inventory', (req, res) => {
   db.collection('inventoryList')
