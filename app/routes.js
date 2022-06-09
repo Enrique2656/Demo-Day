@@ -48,38 +48,40 @@ app.post('/sendResource', (req, res) => {
   })
 })
 
+
+
 // future features to add. like/favorite button? and a like or dislike button? 
 
-app.put('/inventory', (req, res) => {
-  db.collection('inventoryList')
-  .findOneAndUpdate({name: req.body.name, cat: req.body.cat}, {
-    $set: {
-      plus:req.body.plus + 1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  })
-})
+// app.put('/inventory', (req, res) => {
+//   db.collection('inventoryList')
+//   .findOneAndUpdate({name: req.body.name, cat: req.body.cat}, {
+//     $set: {
+//       plus:req.body.plus + 1
+//     }
+//   }, {
+//     sort: {_id: -1},
+//     upsert: true
+//   }, (err, result) => {
+//     if (err) return res.send(err)
+//     res.send(result)
+//   })
+// })
 
 
-app.put('/minusQty', (req, res) => {
-  db.collection('inventoryList')
-  .findOneAndUpdate({name: req.body.name, cat: req.body.cat}, {
-    $set: {
-      plus:req.body.plus - 1
-    }
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  })
-})
+// app.put('/minusQty', (req, res) => {
+//   db.collection('inventoryList')
+//   .findOneAndUpdate({name: req.body.name, cat: req.body.cat}, {
+//     $set: {
+//       plus:req.body.plus - 1
+//     }
+//   }, {
+//     sort: {_id: -1},
+//     upsert: true
+//   }, (err, result) => {
+//     if (err) return res.send(err)
+//     res.send(result)
+//   })
+// })
 
 
 app.delete('/delete', (req, res) => {

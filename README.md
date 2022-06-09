@@ -1,1 +1,1 @@
-WELCOME! This is my Demo Day project which I am passionate about. It is to bring awareness to Human and Child traficking. Please take a look and I would appreciate any feedback!!
+WELCOME! This is my Lift Off project which I am passionate about. It is to bring awareness to Human and Child traficking while also provide resources and simplifying finding local resources to the end user. Please take a look and I would appreciate any feedback!!

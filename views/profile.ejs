@@ -75,6 +75,22 @@
 				</div>
 			</section>
 
+			<div id="eventBrite">
+				<script>
+					fetch(`https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=4VSQRBOBWIV5BH66C7X3&redirect_uri=YOUR_REDIRECT_URI`)
+						.then(res => res.json())
+						.then(data => {
+							console.log(data)
+						})
+						.catch(err => {
+							console.log(`error ${err}`)
+						});
+				</script>
+			</div>
+
+			<!-- API token: 4VSQRBOBWIV5BH66C7X3 -->
+
+
 			<section id="fourth" class="main">
 				<header>
 					<div class="container">
@@ -85,7 +101,23 @@
 				</header>
 				<div class="content style4 featured">
 					<div class="container medium">
-						<form method="post" action="/sendResource">
+						<form action="https://formspree.io/f/myyooovp" method="POST">
+							<label>
+								Your email:
+								<input type="email" name="email">
+							</label>
+							<label>
+								Organization Information:
+								<textarea name="message" placeholder="Please Submit Your organizations Name, Organizations adress and contact information along with the website URL, and any Organizations details you would like to add"></textarea>
+							</label>
+							<!-- your other form fields go here -->
+							<button type="submit">Send</button>
+						</form>
+
+						
+						<!-- this is the old form submission that would add a resource directly to the map.  -->
+
+						<!-- <form method="post" action="/sendResource">
 							<div class="row gtr-50">
 								<div class="col-6 col-12-mobile"><input type="text" name= 'name' placeholder="Name" /></div>
 								<div class="col-6 col-12-mobile"><input id="enterLocation" type="text" name= 'address' placeholder="Address" /></div>
@@ -94,11 +126,14 @@
 										<button type="submit" class="button" value="Send Message">Send</button>
 								</div>
 							</div>
-						</form>
+						</form> -->
+
+						
 					</div>
 				</div>
 			</section>
-	
+
+
 			<!-- Fourth -->
 			<div id="map">
 				<div>
@@ -128,11 +163,10 @@
 										for (let j = 0; j < data.locations.length; j++) {
 											let userAddress = data.locations[j].address;
 											let name = data.locations[j].name;
+											let url = data.locations[j].url;
 											let queryAddress = userAddress.split(' ').join('+')
 											let userCoordinates
-											fetch(
-												`https://maps.googleapis.com/maps/api/geocode/json?address=${queryAddress}&key=AIzaSyA-VGY6HGimxtf0eA9-YvG5I2nRrsaRcwg`
-											)
+											fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryAddress}&key=AIzaSyA-VGY6HGimxtf0eA9-YvG5I2nRrsaRcwg`)
 												.then(res => res.json())
 												.then(function (result) {
 													let locations = []
@@ -159,7 +193,10 @@
 														google.maps.event.addListener(marker, 'click', (function (marker, i) {
 															return function () {
 																infowindow.setContent(
-																	`<p>${name}</p> <p>${userAddress}</p> <p>${locations[i][2]}</p>`
+																	`
+																	<p><a href="${url}" target="_blank"> Click Here to be re-directed to the Website </a></p>
+																		<p>${name}</p> <p>${userAddress}</p> <p> ${locations[i][2]}</p>
+																	`
 																	
 																	);
 																infowindow.open(map, marker);
@@ -226,6 +263,9 @@
 						<p>These Global brands depend upon factories in China that utilize the forced labor of Chinese ethnic minority Uighurs. </p>
 					</div>
 				</header>
+
+
+
 <!-- 
 				<div class="content dark style3">
 					<div class="container">
